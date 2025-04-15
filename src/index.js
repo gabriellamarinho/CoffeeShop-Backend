@@ -1,11 +1,10 @@
 const express = require('express');
-const corsMiddleware = require('./config/cors'); // Importe a configuração do CORS
+const corsMiddleware = require('./config/cors');
 
 const app = express();
 
-app.use(corsMiddleware); // Aplique o middleware do CORS
+app.use(corsMiddleware); 
 
-// ... suas rotas e outras configurações ...
 
 app.listen(3000, () => {
   console.log('Servidor rodando na porta 3000');
