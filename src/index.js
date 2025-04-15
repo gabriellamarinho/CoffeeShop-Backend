@@ -1,4 +1,12 @@
-import { createServer} from 'node:http';
+const express = require('express');
+const corsMiddleware = require('./config/cors'); // Importe a configuração do CORS
 
-import {} from 'node:fs'; //manipulação de aquiv
+const app = express();
 
+app.use(corsMiddleware); // Aplique o middleware do CORS
+
+// ... suas rotas e outras configurações ...
+
+app.listen(3000, () => {
+  console.log('Servidor rodando na porta 3000');
+});
