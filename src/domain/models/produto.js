@@ -1,7 +1,6 @@
-// src/domain/models/produto.js
 
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../config/database'); // adaptado ao seu projeto
+const sequelize = require('../../config/database'); 
 
 const Produto = sequelize.define('Produto', {
   id_produto: {
@@ -25,7 +24,7 @@ const Produto = sequelize.define('Produto', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Categorias', // Nome da tabela de destino
+      model: 'Categorias', 
       key: 'id_categoria'
     }
   },
