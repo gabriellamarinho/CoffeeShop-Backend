@@ -1,7 +1,15 @@
 const express = require('express');
-const routes = require('./routes/rotas')
-const middlewares = require('./middlewares')
+const routes = require("./routes/routes")
+const middlewares = require('./middlewares');
 
+
+const app = express();
+
+const dbhost = process.env.DB_HOST;
+
+app.use(routes);
+
+app.listen(3)
 class App{
   constructor(){
     this.server = express();
