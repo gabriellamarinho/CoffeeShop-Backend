@@ -21,22 +21,98 @@ services:
       timeout: 5s
       retries: 5
 
-  app:
+      
+# login service
+  login-service:
     build:
-      context: .
+      context: ./login-service
       dockerfile: Dockerfile
-    container_name: coffee-shop-app
+    container_name: login-service
     depends_on:
-      mysql:
-        condition: service_healthy
+      - mysql
     environment:
-      DB_HOST: mysql 
-      DB_PORT: 3307
-      DB_DATABASE: coffee-shop-backend 
-      DB_USER: myuser 
-      DB_PASSWORD: Admin1 
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: coffee_shop_login
+      DB_USER: myuser
+      DB_PASSWORD: Admin1
     ports:
-      - '3000:3000' 
+      - '3001:3000'
+    networks:
+      - coffee-shop-net
+
+# wishlist service
+  wishlist-service:
+    build:
+      context: ./wishlist-service
+      dockerfile: Dockerfile
+    container_name: wishlist-service
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: coffee_shop_wishlist
+      DB_USER: myuser
+      DB_PASSWORD: Admin1
+    ports:
+      - '3002:3000'
+    networks:
+      - coffee-shop-net
+
+# invoice service
+  invoice-service:
+    build:
+      context: ./invoice-service
+      dockerfile: Dockerfile
+    container_name: invoice-service
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: coffee_shop_invoice
+      DB_USER: myuser
+      DB_PASSWORD: Admin1
+    ports:
+      - '3003:3000'
+    networks:
+      - coffee-shop-net
+
+# catalog service
+
+  product-catalog-service:
+    build:
+      context: ./product-catalog-service
+      dockerfile: Dockerfile
+    container_name: product-catalog-service
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: coffee_shop_catalog
+      DB_USER: myuser
+      DB_PASSWORD: Admin1
+    ports:
+      - '3004:3000'
+    networks:
+      - coffee-shop-net
+
+# api service
+
+  api-service:
+    build:
+      context: ./api-service
+      dockerfile: Dockerfile
+    container_name: api-service
+    depends_on:
+      - login-service
+      - wishlist-service
+      - invoice-service
+      - product-catalog-service
+    ports:
+      - '3000:3000'
     networks:
       - coffee-shop-net
 
