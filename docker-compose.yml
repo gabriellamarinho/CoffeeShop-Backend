@@ -21,8 +21,7 @@ services:
       timeout: 5s
       retries: 5
 
-      
-# login service
+  # login service
   login-service:
     build:
       context: ./login-service
@@ -41,7 +40,7 @@ services:
     networks:
       - coffee-shop-net
 
-# wishlist service
+  # wishlist service
   wishlist-service:
     build:
       context: ./wishlist-service
@@ -60,7 +59,7 @@ services:
     networks:
       - coffee-shop-net
 
-# invoice service
+  # invoice service
   invoice-service:
     build:
       context: ./invoice-service
@@ -79,8 +78,7 @@ services:
     networks:
       - coffee-shop-net
 
-# catalog service
-
+  # catalog service
   product-catalog-service:
     build:
       context: ./product-catalog-service
@@ -99,8 +97,7 @@ services:
     networks:
       - coffee-shop-net
 
-# api service
-
+  # api service
   api-service:
     build:
       context: ./api-service
@@ -113,6 +110,16 @@ services:
       - product-catalog-service
     ports:
       - '3000:3000'
+    networks:
+      - coffee-shop-net
+
+  # RabbitMQ service (MOVER PARA CÁ!)
+  rabbitmq:
+    image: 'rabbitmq:3.9-management'
+    container_name: rabbitmq-server
+    ports:
+      - '5672:5672' # Porta AMQP
+      - '15672:15672' # Porta da interface de gerenciamento (opcional)
     networks:
       - coffee-shop-net
 
